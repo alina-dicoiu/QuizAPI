@@ -113,6 +113,7 @@
     <Compile Include="Models\Answer.cs">
       <DependentUpon>QuizDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnswersDTO.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>QuizDBModel.tt</DependentUpon>
     </Compile>
