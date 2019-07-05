@@ -16,7 +16,10 @@ namespace QuizAPI.Controllers
     {
         private QuizDBEntities db = new QuizDBEntities();
 
-        // GET: api/Categories
+        // GET: api/Categories/All
+
+        [ActionName("All")]
+
         public IEnumerable<CategoryDTO> GetCategories()
         {
             return (from s in db.Categories
@@ -27,8 +30,11 @@ namespace QuizAPI.Controllers
                     }).ToList();
         }
 
-        // GET: api/Categories/5
+        // GET: api/Categories/ById/5
         [ResponseType(typeof(Category))]
+
+        [ActionName("ById")]
+
         public IHttpActionResult GetCategory(int id)
         {
             Category category = db.Categories.Find(id);
@@ -44,8 +50,11 @@ namespace QuizAPI.Controllers
             });
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Categories/Update/5
         [ResponseType(typeof(void))]
+
+        [ActionName("Update")]
+
         public IHttpActionResult PutCategory(int id, Category category)
         {
             if (!ModelState.IsValid)
@@ -79,8 +88,11 @@ namespace QuizAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Categories
+        // POST: api/Categories/Add
         [ResponseType(typeof(Category))]
+
+        [ActionName("Add")]
+
         public IHttpActionResult PostCategory(Category category)
         {
             if (!ModelState.IsValid)
@@ -94,8 +106,11 @@ namespace QuizAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = category.Id }, category.Id);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/Categories/Delete/5
         [ResponseType(typeof(Category))]
+
+        [ActionName("Delete")]
+
         public IHttpActionResult DeleteCategory(int id)
         {
             Category category = db.Categories.Find(id);

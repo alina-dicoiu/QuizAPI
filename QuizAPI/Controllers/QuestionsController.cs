@@ -14,9 +14,13 @@ namespace QuizAPI.Controllers
 {
     public class QuestionsController : ApiController
     {
+
         private QuizDBEntities db = new QuizDBEntities();
 
-        // GET: api/Questions
+        // GET: api/Questions/All
+
+        [ActionName("All")]
+
         public IEnumerable<QuestionDTO> GetQuestions()
         {
             return (from s in db.Questions
@@ -38,8 +42,38 @@ namespace QuizAPI.Controllers
                     }).ToList(); 
         }
 
-        // GET: api/Questions/5
+        // GET: api/Questions/ByCategory/5
+
+
+        [ActionName("ByCategory")]
+
+        public IEnumerable<QuestionDTO> GetQuestionsByCategory( int id )
+        {
+            return (from s in db.Questions 
+                    where s.Category.Id == id
+                    select new QuestionDTO()
+                    {
+                        Id = s.Id,
+                        Text = s.Text,
+                        CategoryId = s.CategoryId,
+                        CategoryName = s.Category.Name,
+                        PossibleAnswers = (from a in s.Answers
+                                           select new AnswerDTO()
+                                           {
+                                               Id = a.Id,
+                                               Text = a.Text,
+                                               QuestionId = a.QuestionId,
+                                               QuestionText = a.Question.Text,
+                                               Correct = a.Correct
+                                           }).ToList()
+                    }).ToList();
+        }
+
+        // GET: api/Questions/ById/5
         [ResponseType(typeof(Question))]
+
+        [ActionName("ById")]
+
         public IHttpActionResult GetQuestion(int id)
         {
             Question question = db.Questions.Find(id);
@@ -66,8 +100,11 @@ namespace QuizAPI.Controllers
             });
         }
 
-        // PUT: api/Questions/5
+        // PUT: api/Questions/Update/5
         [ResponseType(typeof(void))]
+
+        [ActionName("Update")]
+
         public IHttpActionResult PutQuestion(int id, Question question)
         {
             if (!ModelState.IsValid)
@@ -101,8 +138,11 @@ namespace QuizAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Questions
+        // POST: api/Questions/Add
         [ResponseType(typeof(Question))]
+
+        [ActionName("Add")]
+
         public IHttpActionResult PostQuestion(Question question)
         {
             if (!ModelState.IsValid)
@@ -116,8 +156,11 @@ namespace QuizAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = question.Id }, question.Id);
         }
 
-        // DELETE: api/Questions/5
+        // DELETE: api/Questions/Delete/5
         [ResponseType(typeof(Question))]
+
+        [ActionName("Delete")]
+
         public IHttpActionResult DeleteQuestion(int id)
         {
             Question question = db.Questions.Find(id);
