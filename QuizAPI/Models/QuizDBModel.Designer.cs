@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\alina.dicoiu\source\repos\QuizAPI\QuizAPI\Models\QuizDBModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Miru_2\Desktop\QuizAPI\QuizAPI\QuizAPI\Models\QuizDBModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

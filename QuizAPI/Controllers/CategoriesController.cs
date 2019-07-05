@@ -17,9 +17,14 @@ namespace QuizAPI.Controllers
         private QuizDBEntities db = new QuizDBEntities();
 
         // GET: api/Categories
-        public IQueryable<Category> GetCategories()
+        public IEnumerable<CategoryDTO> GetCategories()
         {
-            return db.Categories;
+            return (from s in db.Categories
+                    select new CategoryDTO()
+                    {
+                        Id = s.Id,
+                        Name=s.Name
+                    }).ToList();
         }
 
         // GET: api/Categories/5
@@ -32,7 +37,11 @@ namespace QuizAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(category);
+            return Ok(new CategoryDTO()
+            {
+                Id = category.Id,
+                Name = category.Name
+            });
         }
 
         // PUT: api/Categories/5
@@ -82,7 +91,7 @@ namespace QuizAPI.Controllers
             db.Categories.Add(category);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = category.Id }, category);
+            return CreatedAtRoute("DefaultApi", new { id = category.Id }, category.Id);
         }
 
         // DELETE: api/Categories/5
