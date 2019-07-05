@@ -17,9 +17,25 @@ namespace QuizAPI.Controllers
         private QuizDBEntities db = new QuizDBEntities();
 
         // GET: api/Questions
-        public IQueryable<Question> GetQuestions()
+        public IEnumerable<QuestionDTO> GetQuestions()
         {
-            return db.Questions;
+            return (from s in db.Questions
+                    select new QuestionDTO()
+                    {
+                        Id = s.Id,
+                        Text = s.Text,
+                        CategoryId = s.CategoryId,
+                        CategoryName = s.Category.Name,
+                        PossibleAnswers = (from a in s.Answers
+                                           select new AnswerDTO()
+                                           {
+                                               Id = a.Id,
+                                               Text = a.Text,
+                                               QuestionId = a.QuestionId,
+                                               QuestionText = a.Question.Text,
+                                               Correct = a.Correct
+                                           }).ToList()
+                    }).ToList(); 
         }
 
         // GET: api/Questions/5
@@ -32,7 +48,22 @@ namespace QuizAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(question);
+            return Ok(new QuestionDTO()
+            {
+                Id = question.Id,
+                Text = question.Text,
+                CategoryId = question.CategoryId,
+                CategoryName = question.Category.Name,
+                PossibleAnswers = (from a in question.Answers
+                                   select new AnswerDTO()
+                                   {
+                                       Id = a.Id,
+                                       Text = a.Text,
+                                       QuestionId = a.QuestionId,
+                                       QuestionText = a.Question.Text,
+                                       Correct = a.Correct
+                                   }).ToList()
+            });
         }
 
         // PUT: api/Questions/5
@@ -82,7 +113,7 @@ namespace QuizAPI.Controllers
             db.Questions.Add(question);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = question.Id }, question);
+            return CreatedAtRoute("DefaultApi", new { id = question.Id }, question.Id);
         }
 
         // DELETE: api/Questions/5

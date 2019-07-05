@@ -17,10 +17,10 @@ namespace QuizAPI.Controllers
         private QuizDBEntities db = new QuizDBEntities();
 
         // GET: api/Answers
-        public IEnumerable<AnswersDTO> GetAnswers()
+        public IEnumerable<AnswerDTO> GetAnswers()
         {
             return (from a in db.Answers
-                    select new AnswersDTO()
+                    select new AnswerDTO()
                     {
                         Id = a.Id,
                         Text = a.Text,
@@ -32,7 +32,7 @@ namespace QuizAPI.Controllers
         }
 
         // GET: api/Answers/5
-        [ResponseType(typeof(AnswersDTO))]
+        [ResponseType(typeof(AnswerDTO))]
         public IHttpActionResult GetAnswer(int id)
         {
             Answer answer = db.Answers.Find(id);
@@ -41,7 +41,7 @@ namespace QuizAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(new AnswersDTO()
+            return Ok(new AnswerDTO()
             {
                 Id = answer.Id,
                 Text = answer.Text,

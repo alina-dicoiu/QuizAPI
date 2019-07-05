@@ -5,12 +5,12 @@ using System.Web;
 
 namespace QuizAPI.Models
 {
-    public class AnswersDTO
+    public class QuestionDTO
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public bool Correct { get; set; }
-        public int QuestionId { get; set; }
-        public string QuestionText { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public List<AnswerDTO> PossibleAnswers { get; set; }
     }
 }

@@ -113,7 +113,7 @@
     <Compile Include="Models\Answer.cs">
       <DependentUpon>QuizDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnswersDTO.cs" />
+    <Compile Include="Models\AnswerDTO.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>QuizDBModel.tt</DependentUpon>
     </Compile>
@@ -121,6 +121,7 @@
     <Compile Include="Models\Question.cs">
       <DependentUpon>QuizDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuestionDTO.cs" />
     <Compile Include="Models\QuizDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
