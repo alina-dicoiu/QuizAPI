@@ -103,7 +103,11 @@ namespace QuizAPI.Controllers
             db.Categories.Add(category);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = category.Id }, category.Id);
+            return CreatedAtRoute("DefaultApi", new { id = category.Id }, new CategoryDTO()
+            {
+                Id = category.Id,
+                Name = category.Name
+            });
         }
 
         // DELETE: api/Categories/Delete/5

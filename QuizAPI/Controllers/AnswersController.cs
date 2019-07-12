@@ -110,7 +110,15 @@ namespace QuizAPI.Controllers
             db.Answers.Add(answer);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = answer.Id }, answer.Id);
+            return CreatedAtRoute("DefaultApi", new { id = answer.Id }, new AnswerDTO()
+            {
+                Id = answer.Id,
+                Text = answer.Text,
+                Correct = answer.Correct,
+                QuestionId = answer.QuestionId,
+                QuestionText = answer.Question.Text
+            });
+              
         }
 
         // DELETE: api/Answers/Delete/5
