@@ -118,6 +118,10 @@ namespace QuizAPI.Controllers
             }
 
             db.Entry(question).State = EntityState.Modified;
+            foreach(var answer in question.Answers)
+            {
+                db.Entry(answer).State = EntityState.Modified;
+            }
 
             try
             {
@@ -158,7 +162,6 @@ namespace QuizAPI.Controllers
                 Id = question.Id,
                 Text = question.Text,
                 CategoryId = question.CategoryId,
-                CategoryName = question.Category.Name,
                 PossibleAnswers = (from a in question.Answers
                                    select new AnswerDTO()
                                    {
